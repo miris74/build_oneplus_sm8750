@@ -422,7 +422,7 @@ jobs:
           make -j$(nproc --all) LLVM=1 ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CC="ccache clang" RUSTC=../../prebuilts/rust/linux-x86/1.73.0b/bin/rustc PAHOLE=../../prebuilts/kernel-build-tools/linux-x86/bin/pahole LD=ld.lld HOSTLD=ld.lld O=out KCFLAGS+=-O2  Image
           
       - name: 📦 Make AnyKernel3 (NoKPM)
-        [span_40](start_span)if: ${{inputs.enable_feature_x }} # KPMなしの場合のみ実行[span_40](end_span)
+        if: ${{inputs.enable_feature_x }} # KPMなしの場合のみ実行
         run: |
           git clone https://github.com/showdo/AnyKernel3.git --depth=1 AnyKernel3_NoKPM
           rm -rf ./AnyKernel3_NoKPM/.git
@@ -431,14 +431,14 @@ jobs:
       
       
       - name: 📤 Upload AnyKernel3 (上传NoKPM_AK3包)
-        [span_41](start_span)if: ${{inputs.enable_feature_x }} # KPMなしの場合のみ実行[span_41](end_span)
+        if: ${{inputs.enable_feature_x }} # KPMなしの場合のみ実行
         uses: actions/upload-artifact@v4
         with:
-          [span_42](start_span)name: AK3_NoKPM_${{ env.KSUVER }}_${{ env.DEVICES_NAME }}_KernelSU # ファイル名をKernelSUに更新[span_42](end_span)
+          name: AK3_NoKPM_${{ env.KSUVER }}_${{ env.DEVICES_NAME }}_KernelSU # ファイル名をKernelSUに更新
           path: ./AnyKernel3_NoKPM/*
 
       - name: 📦 Apply KPM Patch (应用KPM修补补丁)
-        [span_43](start_span)if: ${{ !inputs.enable_feature_x }} # KPMを有効にする場合のみ実行[span_43](end_span)
+        if: ${{ !inputs.enable_feature_x }} # KPMを有効にする場合のみ実行
         run: |
           cd kernel_workspace/kernel_platform/common/out/arch/arm64/boot
           curl -LO https://github.com/SukiSU-Ultra/SukiSU_KernelPatch_patch/releases/download/0.12.0/patch_linux
@@ -448,7 +448,7 @@ jobs:
           mv oImage Image
          
       - name: 📦 Make AnyKernel3 (KPM)
-        [span_44](start_span)if: ${{ !inputs.enable_feature_x }} # KPMを有効にする場合のみ実行[span_44](end_span)
+        if: ${{ !inputs.enable_feature_x }} # KPMを有効にする場合のみ実行
         run: |
           git clone https://github.com/showdo/AnyKernel3.git --depth=1      
           rm -rf ./AnyKernel3/.git
@@ -456,14 +456,14 @@ jobs:
           cp kernel_workspace/kernel_platform/common/out/arch/arm64/boot/Image ./AnyKernel3/
 
       - name: 📤 Upload AnyKernel3 (上传 KPM_AK3包)
-        [span_45](start_span)if: ${{ !inputs.enable_feature_x }} # KPMを有効にする場合のみ実行[span_45](end_span)
+        if: ${{ !inputs.enable_feature_x }} # KPMを有効にする場合のみ実行
         uses: actions/upload-artifact@v4
         with:
-         [span_46](start_span)name: AK3_KPM_${{ env.KSUVER }}_${{ env.DEVICES_NAME }}_KernelSU # ファイル名をKernelSUに更新[span_46](end_span)
+         name: AK3_KPM_${{ env.KSUVER }}_${{ env.DEVICES_NAME }}_KernelSU # ファイル名をKernelSUに更新
          path: ./AnyKernel3/*
      
       - name: 📊 Post-build disk check (构建后空间检查)
         run: |
-          [span_47](start_span)echo "构建后磁盘空间："[span_47](end_span)
+          echo "构建后磁盘空间："[span_47]
           df -h
 
