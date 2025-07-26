@@ -316,7 +316,9 @@ CONFIG_CRYPTO_LZ4HC=y
 CONFIG_CRYPTO_LZ4=y
 CONFIG_CRYPTO_LZ4K=y
 CONFIG_CRYPTO_842=y
-CONFIG_LOCALVERSION_AUTO=n" >> gki_defconfig
+CONFIG_LOCALVERSION_AUTO=n
+CONFIG_OVERLAY_FS=y
+CONFIG_TMPFS_XATTR=y" >> gki_defconfig
 
 # 返回kernel_platform目录
 cd $KERNEL_WORKSPACE/kernel_platform || error "返回kernel_platform目录失败"
