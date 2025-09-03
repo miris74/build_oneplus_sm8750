@@ -1,3 +1,5 @@
+本家とは違い、SukiSU UltraでMountifyを使えるように改変してあります
+
 **`简体中文`** | [English](README-en.md)<br>
 
 [![GitHub](https://img.shields.io/badge/-GitHub|@showdo-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/showdo/build_oneplus_sm8750)
